@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera with Overlays and Countdown</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="controls" class="controls">
+        <button id="captureBtn" class="captureBtn">Bild aufnehmen</button>
+        <div id="overlayButtons"></div> <!-- Overlay buttons will be generated here -->
+        <!--<button id="toggleCameraBtn">Toggle Camera</button>-->
+    </div>
+    <div id="afterCaptureControls" class="afterCaptureControls">
+        <button id="dismissBtn">Bild löschen</button>
+        <button id="saveBtn">Bild speichern</button>
+        <p id="saveNotice">
+            Mit einem Klick auf "Bild speichern" erlaubst du uns (Halloweenhaus Schmalenbeck), dass wir dieses Bild auf 
+            unserer Website veröffentlichen und ggf. für unsere Öffentlichkeitsarbeit verwenden dürfen. Die Bilder werden 
+            nach Speicherung zusammen mit anderen Bildern dieser Fotobox in einer Galerie auf der Website abrufbar sein.
+            Solltest du diesen Bedingungen nicht zustimmen wollen, kannst du dein Bild hier vom Bildschirm für deinen 
+            persönlichen Gebrauch abfotografieren und auf "Bild löschen" klicken.
+        </p>
+    </div>
+    <div id="countdown"></div>
+
+    <div id="videoContainer">
+        <video id="video" autoplay></video>
+        <img id="overlayPreview" class="overlay" alt="Overlay Preview">
+    </div>
+
+    <canvas id="canvas"></canvas>
+</body>
+<script src="app.js"></script>
+
+</html>
