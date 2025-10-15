@@ -191,31 +191,19 @@ function applyOverlay(overlaySrc) {
 // Save the image
 saveBtn.addEventListener('click', () => {
     const imageDataURL = canvas.toDataURL('image/png');
-    loadingEl.classList.remove("hidden");
+    // Send this data URL to the server to save in the database
+    console.log(imageDataURL); // For testing
+    
+    resetCamera();
 
-    const bodyData = JSON.stringify({ image: imageDataURL });
-    afterCaptureControls.classList.add("hidden");
-
-    const form = new FormData();
-    const now = new Date().toISOString().replace(/[-T:.Z]/g, '');
-
-    form.append("action_submit", "Submit");
-    canvas.toBlob((blob) => {
-        if (blob) {
-            form.append('Image', blob, `${now}.jpg`);
-            fetch('https://halloweenhaus-schmalenbeck.de/api/BoothImageEntryForm', {
-                method: 'POST',
-                body: form,
-            }).then(response => response.json())
-            .then(data => {
-                console.log('Image saved:', data);
-                qrcodeText = data.qrlink;
-                changeState('saving');
-                loadingEl.classList.add("hidden");
-            })
-            .catch(error => console.error('Error saving image:', error));
-        }
-    }, 'image/jpeg');
+    // Example: Sending the image to a server
+    // fetch('/save-image', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ image: imageDataURL }),
+    //   headers: { 'Content-Type': 'application/json' }
+    // }).then(response => response.json())
+    // .then(data => console.log('Image saved:', data))
+    // .catch(error => console.error('Error saving image:', error));
 });
 
 dismissBtn.addEventListener('click', () => {

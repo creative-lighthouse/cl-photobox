@@ -84,14 +84,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const dataUrl = canvas.toDataURL('image/png');
         photoResult.innerHTML = `<img src="${dataUrl}" style="max-width:100%;border-radius:8px;" />`;
 
-        // Bild automatisch als JPEG an die API senden
+        // Bild als JPEG-Blob per FormData an die API senden
         const now = new Date().toISOString().replace(/[-T:.Z]/g, '');
         const form = new FormData();
-        form.append("action_submit", "Submit");
+        form.append('action_submit', 'Submit');
         canvas.toBlob((blob) => {
             if (blob) {
                 form.append('Image', blob, `${now}.jpg`);
-                fetch('https://halloweenhaus-website.ddev.site/api/submitBoothImage', {
+                fetch('https://halloweenhaus-schmalenbeck.de/api/BoothImageEntryForm', {
                     method: 'POST',
                     body: form,
                 })
