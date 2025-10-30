@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let lastElapsedDs = null;
     let countdownTimer = null;
 
-    const ws = new WebSocket('ws://localhost:8765'); // Passe die URL ggf. an
+    const ws = new WebSocket('ws://192.168.188.81:8765'); // Passe die URL ggf. an
     ws.onopen = function() {
         console.log('Websocket verbunden (Websocket-Modus)');
         // Sende heartbeat-Nachricht an den Server, damit die WebApp im Show Controller erscheint
