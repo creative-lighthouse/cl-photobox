@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (msg.type === "state" && msg.state) {
             // Prüfe, ob elapsedDs auf 0 zurückgesetzt wurde (Showstart)
             if (typeof msg.state.elapsedDs === 'number') {
-                if (lastElapsedDs !== null && msg.state.elapsedDs === 0 && lastElapsedDs > 0) {
+                if (lastElapsedDs !== null && msg.state.elapsedDs < lastElapsedDs && lastElapsedDs > 0) {
                     startCountdown();
                 }
                 lastElapsedDs = msg.state.elapsedDs;
@@ -145,7 +145,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 video.srcObject = stream;
             })
             .catch(err => {
-                console.error('Kamera-Fehler:', err);
+                if (err.name === 'OverconstrainedError') {
+                    console.warn('Spezifische Kamera konnte nicht geöffnet werden, versuche Standardkamera...');
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(stream => {
+                            currentStream = stream;
+                            video.srcObject = stream;
+                        })
+                        .catch(e2 => {
+                            console.error('Kamera-Fehler (Fallback):', e2);
+                            alert('Keine Kamera verfügbar oder Berechtigung verweigert.');
+                        });
+                } else {
+                    console.error('Kamera-Fehler:', err);
+                    alert('Kamera-Fehler: ' + err.message);
+                }
             });
     }
 
