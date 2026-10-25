@@ -44,7 +44,15 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
     switchBtn.id = 'switch-mode-btn';
     switchBtn.textContent = 'Websocket-Modus aktivieren';
     document.body.appendChild(switchBtn);
-        
+
+    const keypressBtn = document.createElement('button');
+    keypressBtn.id = 'switch-keypress-btn';
+    keypressBtn.textContent = 'Tastendruck-Modus aktivieren';
+    keypressBtn.addEventListener('click', function() {
+      window.location.href = 'keypress.html';
+    });
+    document.body.appendChild(keypressBtn);
+
     let websocketMode = false;
     let ws;
         

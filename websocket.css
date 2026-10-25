@@ -33,3 +33,13 @@ body {
 #back-btn:hover {
     background: #666;
 }
+
+.key-label {
+    display: inline-block;
+    margin: 0 8px;
+    padding: 4px 12px;
+    background: #444;
+    border: 1px solid #666;
+    border-radius: 6px;
+    font-family: monospace;
+}
