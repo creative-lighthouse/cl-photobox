@@ -89,26 +89,19 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     const dataUrl = canvas.toDataURL("image/png");
     photoResult.innerHTML = `<img src="${dataUrl}" style="max-width:100%;border-radius:8px;" />`;
+    // Eigener Container je Foto, damit eine späte Antwort nicht beim nächsten Foto landet
+    const resultContainer = document.createElement("div");
+    photoResult.appendChild(resultContainer);
 
-    // Bild als JPEG-Blob per FormData an die API senden
-    const now = new Date().toISOString().replace(/[-T:.Z]/g, "");
-    const form = new FormData();
-    form.append("action_submit", "Submit");
-    canvas.toBlob((blob) => {
-      if (blob) {
-        form.append("Image", blob, `${now}.jpg`);
-        fetch("https://halloweenhaus-schmalenbeck.de/api/BoothImageEntryForm", {
-          method: "POST",
-          body: form,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Image saved:", data);
-          })
-          .catch((error) => console.error("Error saving image:", error));
-      }
-    }, "image/jpeg");
+    // Bild als JPEG per FormData an das gewählte Upload-Ziel senden
+    uploadPhoto(canvas)
+      .then((data) => showUploadResult(resultContainer, data))
+      .catch(() => {
+        // Bereits in uploadPhoto geloggt
+      });
   }
+
+  initUploadTargetSelect(document.getElementById("upload-target"));
 
   document.getElementById("back-btn").addEventListener("click", function () {
     ws.close();
