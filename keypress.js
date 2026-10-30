@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    initUploadTargetSelect(document.getElementById('upload-target'));
+    initUploadTargetSelect(document.getElementById('upload-target'), 'onride');
+    initUploadBaseUrlInput(document.getElementById('upload-base-url'));
 
     document.getElementById('back-btn').addEventListener('click', function() {
         window.location.href = 'index.html';
